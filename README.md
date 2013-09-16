@@ -7,6 +7,12 @@ Agent are assigned via email, and their addresses are masked when they respond t
 
 PipeSupport will run on any Unix system with a mail server supporting mail piping, for instance Postfix.
 
+### cPanel Configuration
+
+Upload the script outside your public_html. Change the file permissions of `pipe.php` to `0755`. 
+
+Now, in cPanel, click the *Add Forwarder* button. In the *Address To Forward*, type `|php -q /home/yourname/pipesupport/pipe.php`. Click *Add Forwarder*.
+
 ### Postfix Configuration
 
 To install this on Postfix (preconfigured by yourself), find and open /etc/aliases - add the line
