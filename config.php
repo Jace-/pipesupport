@@ -4,7 +4,7 @@
 */
 $_STAFF = array(
 	"you@example.com",
-	"jamie@r.cx"
+	"jace@index.hm"
 );
 /*
  This parameter should match the support email your clients are given
