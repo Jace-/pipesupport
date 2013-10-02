@@ -57,8 +57,7 @@ You should configure the email to send from with the `$_MAIN_EMAIL` variable, an
 For instance:
 ```php
 $_STAFF = array(
-  "you@example.com",
-  "jamie@r.cx"
+  "you@example.com"
 );
 $_MAIN_EMAIL = "support@yourdomain.com";
 ```
