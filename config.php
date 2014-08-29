@@ -3,20 +3,20 @@
  The following directive should contain all the emails of your reps
 */
 $_STAFF = array(
-	"you@example.com",
-	"jace@index.hm"
+	"jamie@oldpenguin.com",
+	"payton@oldpengu.in"
 );
 /*
  This parameter should match the support email your clients are given
 */
-$_MAIN_EMAIL = "support@yourdomain.com";
+$_MAIN_EMAIL = "support@oldpenguin.com";
 
 $_DATABASE = array(
 	"type" => "mysql",
 	"host" => "localhost",
-	"username" => "root",
-	"password" => "",
-	"database" => "pipesupport"
+	"username" => "support",
+	"password" => 'y8H@~mIUUA(etz7FbG6^5ob~tV>N-|wLyKNyxeB',
+	"database" => "support"
 );
 
 $_pdo = new PDO($_DATABASE['type'] . ":host={$_DATABASE['host']};dbname={$_DATABASE['database']}", $_DATABASE['username'], $_DATABASE['password']);
@@ -27,7 +27,7 @@ $_pdo->exec("CREATE TABLE IF NOT EXISTS `support_tickets` (
 	`sender` VARCHAR(255),
 	`cc` TEXT,
 	`update` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) AUTO_INCREMENT=10000000;"); 
+) AUTO_INCREMENT=14542100;"); 
 
 // Credit to ricardovermeltfoort[at]gmail[dot]com
 // http://www.php.net/manual/en/function.http-parse-headers.php#112986
@@ -46,7 +46,7 @@ if(!function_exists('http_parse_headers')) {
 					$headers[$h[0]] = array_merge(array($headers[$h[0]]), array(trim($h[1])));
 				$key = $h[0];
 			} else {
-				if (substr($h[0], 0, 1) == "\t")
+				if (substr($h[0], 0, 1) == "\t" || substr($h[0], 0, 1) == " ")
 					$headers[$key] .= "\r\n\t".trim($h[0]);
 				else if (!$key) // [+]
 					$headers[0] = trim($h[0]);

@@ -10,6 +10,7 @@ if(php_sapi_name() != "cli" && PHP_SAPI != "cli" && !DEBUG)
 	exit; // No web access...
 
 $_pipe = trim(file_get_contents(STDIN_PATH), "\r\n");
+file_put_contents(tempnam("/tmp", "MAIL"), $_pipe);
 
 // Time to parse the email.
 list($_headers, $_body) = explode("\n\n", str_replace("\r\n", "\n", $_pipe), 2); // remove \r\n, stupid winblows
@@ -38,10 +39,9 @@ foreach($_cc as $_cc_orig){
 }
 
 $_content_type = $_headers["Content-Type"] != null ? "Content-Type: " . $_headers["Content-Type"]: ""; // Preserve this header
-
 $_ticket_id = -1;
 if(preg_match("/^(.*)?\[#([0-9]{1,12})\](.*)/", $_subject, $_matches)) { // Check the header for [#1234]
-	$_result = $_pdo->query("SELECT * FROM `support_tickets` WHERE `ticket_id`='" . ((int) $_ticket_id) . "';")->fetchAll();
+	$_result = $_pdo->query("SELECT * FROM `support_tickets` WHERE `ticket_id`='" . ((int) $_matches[2]) . "';")->fetchAll();
 	if(count($_result) != 0)
 		$_ticket_id = $_matches[2];
 }
@@ -63,7 +63,7 @@ if($_ticket_id == -1){
 if($_ticket_id == -1){
 	// Let's create a ticket for this, and then send it to staff :)
 	$_stmt = $_pdo->prepare("INSERT INTO `support_tickets` (`sender`, `cc`) VALUES (?, ?);");
-	$_stmt->execute(array($_raw_from, $_raw_cc));
+	$_stmt->execute(array($_raw_from, implode(",", (array) $_raw_cc)));
 	$_ticket_id = $_pdo->lastInsertId('ticket_id');
 	$_new_ticket = true;
 }
